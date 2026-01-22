@@ -161,7 +161,7 @@ It's saved me countless hours and eliminated a frustrating user experience issue
 
 If you're building Livewire applications (or any long-running Laravel sessions), silent CSRF token refresh is a must-have for good UX. Instead of forcing users to refresh and lose their work, let this package handle it automatically in the background.
 
-Check it out on [GitHub](#) or install it now:
+Check it out on [GitHub](https://github.com/brunoabpinto/csrf-refresh) or install it now:
 
 ```bash
 composer require brunoabpinto/csrf-refresh
