@@ -1,8 +1,10 @@
 <!-- @format -->
 
-# Bruno Pinto's Blog
+# [ placeholder ]
 
 My personal blog built with [Astro](https://astro.build).
+
+[Live url](https://placeholderblog.netlify.app/).
 
 ## Commands
 
