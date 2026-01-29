@@ -109,6 +109,12 @@ Deprecated, and for some reason only works on `<body>`. Dead end.
 ```
 This works. It's deprecated, it's not recommended, and it's perfect for this project.
 
+**Attempt 7: Drop the hashtag**
+```html
+<hr color=c5ced3>
+```
+Turns out the `#` is optional on hex colors. One more character gone.
+
 This is the shortest I could make each pixel. If you know a way to make it smaller, I'm genuinely curious.
 
 The code is straightforward. PHP's image functions handle the pixel reading, a loop builds the markup, and Livewire makes the upload/download flow seamless. Nothing revolutionary — just reasonable tools applied to an unreasonable idea.
