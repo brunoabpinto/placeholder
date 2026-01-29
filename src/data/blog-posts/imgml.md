@@ -117,7 +117,36 @@ Turns out the `#` is optional on hex colors. One more character gone.
 
 This is the shortest I could make each pixel. If you know a way to make it smaller, I'm genuinely curious.
 
-The code is straightforward. PHP's image functions handle the pixel reading, a loop builds the markup, and Livewire makes the upload/download flow seamless. Nothing revolutionary — just reasonable tools applied to an unreasonable idea.
+
+The code is straightforward. PHP's image functions handle the pixel reading:
+
+```php
+// Resize to keep things manageable
+$image = $this->resizeImage($path, 200, 200);
+$resource = imagecreatefromjpeg($image);
+
+$width = imagesx($resource);
+$height = imagesy($resource);
+$pixels = [];
+
+// Loop through every pixel
+for ($y = 0; $y < $height; $y++) {
+    for ($x = 0; $x < $width; $x++) {
+        // Get color index at this coordinate
+        $color = imagecolorat($resource, $x, $y);
+
+        // Convert to RGB array
+        $rgb = imagecolorsforindex($resource, $color);
+
+        // Format as hex (no hashtag needed)
+        $hex = sprintf('%02x%02x%02x', $rgb['red'], $rgb['green'], $rgb['blue']);
+
+        $pixels[] = $hex;
+    }
+}
+```
+
+Loop through each row, each column, grab the color, convert to hex, done. Livewire handles the upload/download flow. Nothing revolutionary — just reasonable tools applied to an unreasonable idea.
 
 ## What I Actually Learned
 
