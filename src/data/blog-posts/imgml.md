@@ -181,7 +181,7 @@ Will it make you briefly happy in a "wow, that's dumb" kind of way? Almost certa
 
 And sometimes, that's enough.
 
-Here's [my GitHub avatar in IMGML format](assets/blog/imgml.html) if you want to see it in action.
+Here's [my GitHub avatar in IMGML format](/assets/blog/imgml.html) if you want to see it in action.
 
 ---
 
