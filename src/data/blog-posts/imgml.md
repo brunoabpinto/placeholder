@@ -105,7 +105,7 @@ Deprecated, and for some reason only works on `<body>`. Dead end.
 
 **Attempt 6: The color attribute**
 ```html
-<hr color="#c5ced3">
+<hr color=#c5ced3>
 ```
 This works. It's deprecated, it's not recommended, and it's perfect for this project.
 
