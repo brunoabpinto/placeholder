@@ -53,19 +53,63 @@ Here's what the output looks like — just a wall of `<hr>` tags, each with an i
 
 ```html
 <r>
-  <hr style="background:#cad5d9" />
-  <hr style="background:#c5ced3" />
-  <hr style="background:#cdd6db" />
-  <hr style="background:#dde4ea" />
-  <hr style="background:#e4ebf1" />
-  <hr style="background:#e1e6ec" />
-  <hr style="background:#dadfe5" />
-  <hr style="background:#d7dadf" />
+  <hr style=background:#cad5d9/>
+  <hr style=background:#c5ced3/>
+  <hr style=background:#cdd6db/>
+  <hr style=background:#dde4ea/>
+  <hr style=background:#e4ebf1/>
+  <hr style=background:#e1e6ec/>
+  <hr style=background:#dadfe5/>
+  <hr style=background:#d7dadf/>
   ...
 </r>
 ```
 
 The `<r>` tag represents a row of pixels. Why `<r>` and `<hr>`? File size. When you're generating tens of thousands of elements, every character counts. `<hr>` is the shortest self-closing tag in HTML, and `<r>` is about as minimal as a row container can get. It's not semantic, but neither is this entire project.
+
+The code is straightforward. PHP's image functions handle the pixel reading, a loop builds the markup, and Livewire makes the upload/download flow seamless. Nothing revolutionary — just reasonable tools applied to an unreasonable idea.
+
+## The Optimization Rabbit Hole
+
+Once I committed to this absurd idea, I became obsessed with making each pixel as small as possible. Here's how that went:
+
+**Attempt 1: RGB**
+```html
+<hr style="background:rgb(255, 255, 255)">
+```
+Works, but verbose. All those characters add up.
+
+**Attempt 2: Hex**
+```html
+<hr style="background:#c5ced3"/>
+```
+Shorter. Hex codes are more compact than RGB.
+
+**Attempt 3: Drop the self-closing slash**
+```html
+<hr style="background:#c5ced3">
+```
+It's optional in HTML5. Every byte counts.
+
+**Attempt 4: Drop the quotes**
+```html
+<hr style=background:#c5ced3>
+```
+Also valid HTML. We're getting minimal.
+
+**Attempt 5: The bgcolor attribute**
+```html
+<hr bgcolor="#c5ced3">
+```
+Deprecated, and for some reason only works on `<body>`. Dead end.
+
+**Attempt 6: The color attribute**
+```html
+<hr color="#c5ced3">
+```
+This works. It's deprecated, it's not recommended, and it's perfect for this project.
+
+This is the shortest I could make each pixel. If you know a way to make it smaller, I'm genuinely curious.
 
 The code is straightforward. PHP's image functions handle the pixel reading, a loop builds the markup, and Livewire makes the upload/download flow seamless. Nothing revolutionary — just reasonable tools applied to an unreasonable idea.
 
