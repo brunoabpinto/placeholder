@@ -49,6 +49,24 @@ Some might call it a waste of time. I call it a learning experience wrapped in a
 
 For those curious, it's built with Laravel 12 and Livewire. Upload an image, the backend processes it pixel by pixel, and you download your freshly minted HTML monstrosity.
 
+Here's what the output looks like — just a wall of `<hr>` tags, each with an inline background color:
+
+```html
+<r>
+  <hr style="background:#cad5d9" />
+  <hr style="background:#c5ced3" />
+  <hr style="background:#cdd6db" />
+  <hr style="background:#dde4ea" />
+  <hr style="background:#e4ebf1" />
+  <hr style="background:#e1e6ec" />
+  <hr style="background:#dadfe5" />
+  <hr style="background:#d7dadf" />
+  ...
+</r>
+```
+
+The `<r>` tag represents a row of pixels. Why `<r>` and `<hr>`? File size. When you're generating tens of thousands of elements, every character counts. `<hr>` is the shortest self-closing tag in HTML, and `<r>` is about as minimal as a row container can get. It's not semantic, but neither is this entire project.
+
 The code is straightforward. PHP's image functions handle the pixel reading, a loop builds the markup, and Livewire makes the upload/download flow seamless. Nothing revolutionary — just reasonable tools applied to an unreasonable idea.
 
 ## What I Actually Learned
