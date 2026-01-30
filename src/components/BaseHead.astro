@@ -6,12 +6,14 @@ import '../styles/global.css'
 export interface Props {
   title: string
   description: string
-  permalink: string,
-  slug: string
+  permalink: string
+  slug?: string
+  image?: string
 }
 
-const { title, description, permalink, slug } = Astro.props
-const socialUrl = `${Astro.site.href}assets/blog/${slug}.jpg`
+const { title, description, permalink, slug, image } = Astro.props
+const defaultImage = `${Astro.site.href}assets/blog/default.jpg`
+const socialUrl = image ?? (slug ? `${Astro.site.href}assets/blog/${slug}.jpg` : defaultImage)
 ---
 
 <!-- Global Metadata -->
