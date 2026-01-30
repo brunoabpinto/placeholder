@@ -125,8 +125,6 @@ This works. It's deprecated, it's not recommended, and it's perfect for this pro
 <hr color="c5ced3" />
 ```
 
-> **Note:** This does not work on Firefox.
-
 Turns out the `#` is optional on hex colors. One more character gone.
 
 This is the shortest I could make each pixel. If you know a way to make it smaller, I'm genuinely curious.
@@ -195,6 +193,18 @@ Will it make you briefly happy in a "wow, that's dumb" kind of way? Almost certa
 And sometimes, that's enough.
 
 Here's [my GitHub avatar in IMGML format](/assets/blog/imgml.html) if you want to see it in action.
+
+> **Note:**
+>
+> ```html
+> <hr color="c5ced3" />
+> ```
+>
+> <small>_Does not work on Firefox. This example uses the following structure:_</small>
+>
+> ```html
+> <hr style="background:#07040b" />
+> ```
 
 ---
 
