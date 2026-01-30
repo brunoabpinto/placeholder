@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "WebFetch(domain:placeholderblog.netlify.app)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(sips:*)"
     ]
   }
 }
