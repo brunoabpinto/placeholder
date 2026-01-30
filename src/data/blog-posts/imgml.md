@@ -72,31 +72,37 @@ Once I committed to this absurd idea, I became obsessed with making each pixel a
 <hr style="background:rgb(255, 255, 255)">
 ```
 Works, but verbose. All those characters add up.
+
 **Attempt 2: Hex**
 ```html
 <hr style="background:#c5ced3"/>
 ```
 Shorter. Hex codes are more compact than RGB.
+
 **Attempt 3: Drop the self-closing slash**
 ```html
 <hr style="background:#c5ced3">
 ```
 It's optional in HTML5. Every byte counts.
+
 **Attempt 4: Drop the quotes**
 ```html
 <hr style=background:#c5ced3>
 ```
 Also valid HTML. We're getting minimal.
+
 **Attempt 5: The bgcolor attribute**
 ```html
 <hr bgcolor="#c5ced3">
 ```
 Deprecated, and for some reason only works on `<body>`. Dead end.
+
 **Attempt 6: The color attribute**
 ```html
 <hr color=#c5ced3>
 ```
 This works. It's deprecated, it's not recommended, and it's perfect for this project.
+
 **Attempt 7: Drop the hashtag**
 ```html
 <hr color=c5ced3>
