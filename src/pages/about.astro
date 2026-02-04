@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'About';
+const description = 'About this site.';
+const permalink = `${Astro.site.href}about`;
+---
+
+<BaseLayout title={title} description={description} permalink={permalink} current="about">
+  <div class="container">
+    <h1>About</h1>
+    <p>
+      This is a small blog about building web stuff, shipping ideas fast, and
+      keeping the stack simple.
+    </p>
+    <p>
+      Expect short notes, quick experiments, and occasional deeper dives when
+      something is worth writing up.
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  h1 {
+    font-family: var(--font-family-sans);
+    font-weight: 700;
+  }
+</style>
