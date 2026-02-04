@@ -2,7 +2,7 @@
 title: "Vector: The easiest way to plug Vue in Blade"
 slug: vector
 publishDate: 3 Feb 2026
-description: Laravel package that lets you write Vue directly in Blade templates using a simple <script setup> tag. Is it cursed? Maybe. Does it work? Absolutely
+description: Laravel package that lets you write Vue directly in Blade templates using a simple <script setup> tag.
 ---
 
 <!-- @format -->
