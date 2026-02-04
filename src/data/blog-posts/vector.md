@@ -2,7 +2,7 @@
 title: "Vector: The easiest way to plug Vue in Blade"
 slug: vector
 publishDate: 3 Feb 2026
-description: Laravel package that lets you write Vue's <script setup> syntax directly in Blade templates. Is it cursed? Maybe. Does it work? Absolutely
+description: Laravel package that lets you write Vue directly in Blade templates using a simple <script setup> tag. Is it cursed? Maybe. Does it work? Absolutely
 ---
 
 <!-- @format -->
@@ -13,64 +13,51 @@ I kept reaching for Alpine.js, which is great, but I wanted Vue's Composition AP
 
 ## What Even Is This?
 
-Vector is a Laravel package that lets you write Vue's `<script setup>` syntax directly in your Blade templates:
+Vector is a Laravel package that lets you write Vue directly in your Blade templates with zero ceremony:
 
 ```blade
-@vector
-    <script setup>
-        const count = ref(0);
-    </script>
-@endvector
+<script setup>
+    const i = ref(0);
+</script>
 
 <div>
-    <button @click="count++">Clicked @{{ count }} times</button>
+    <button @click="i++">Click Me</button>
+    <div>
+        Count: @{{ i }}
+    </div>
+    <div v-if="i > 5">Success!</div>
 </div>
 ```
 
-That's it. No build step for your components. No separate `.vue` files. Just Blade with a sprinkle of Vue.
-
-## Why Though?
-
-I was tired of the mental gymnastics:
-
-1. "This needs reactivity"
-2. "Should I make a Vue component?"
-3. "But it's just a counter..."
-4. "Fine, I'll use Alpine"
-5. "Wait, how do I do computed properties in Alpine again?"
-
-With Vector, the answer is always: write it like you would in Vue, because it _is_ Vue.
+That's it. No build step for your components. No separate `.vue` files. No special directives wrapping your code. Just a `<script setup>` tag and you're done.
 
 ## How It Works
 
-The `@vector` directive does a few things:
+The `<script setup>` tag gets transformed at compile time. Vector treats the **element immediately after** the script tag as your Vue template—everything inside that element becomes reactive, and anything outside it remains regular Blade.
 
-1. Captures your `<script setup>` block
-2. Strips the Vue imports (they're provided globally)
-3. Extracts your variable declarations
-4. Generates a script that mounts Vue on the next sibling element
-
-```php
-// What @vector generates
-<script data-vector="vector-abc123">
-(function(__script) {
-    function __mount() {
-        const { createApp, ref } = window.Vue;
-
-        const count = ref(0);
-
-        createApp({
-            setup() {
-                return { count };
-            }
-        }).mount(__script.nextElementSibling);
-    }
-    // ... waits for Vue to be available
-})(document.currentScript);
-</script>
-```
+1. Blade's precompiler finds your `<script setup>` blocks
+2. Extracts your variable declarations
+3. Mounts Vue on the next sibling element
 
 The magic is in the variable extraction. It parses `const`, `let`, and `var` declarations and auto-returns them to the template. You write normal code, it figures out the rest.
+
+### Escaping Blade Syntax
+
+Since Blade also uses `{{ }}` for output, you need to prefix Vue's mustache syntax with `@` to prevent Blade from processing it:
+
+```blade
+{{-- This is Blade --}}
+{{ $phpVariable }}
+
+{{-- This is Vue (note the @) --}}
+@{{ vueVariable }}
+```
+
+Alternatively, use Vue directives like `v-text` which don't conflict with Blade:
+
+```blade
+<span v-text="count"></span>
+```
 
 ## Installation
 
@@ -78,22 +65,37 @@ The magic is in the variable extraction. It parses `const`, `let`, and `var` dec
 composer require brunoabpinto/vector
 ```
 
-Then expose Vue globally in your `app.js`:
+Add Vector to your Vite entry points in `vite.config.js`:
 
 ```javascript
-import * as Vue from "vue";
-window.Vue = Vue;
-```
-
-And update your `vite.config.js` to use Vue's runtime compiler:
-
-```javascript
+plugins: [
+    laravel({
+        input: [
+            "resources/css/app.css",
+            "resources/js/app.js",
+            "resources/js/vendor/vector.js",
+        ],
+        // ...
+    }),
+],
 resolve: {
     alias: {
         'vue': 'vue/dist/vue.esm-bundler.js',
     },
 },
 ```
+
+Add `@vectorJs` before your closing `</body>` tag in your layout:
+
+```blade
+<body>
+    {{ $slot }}
+
+    @vectorJs
+</body>
+```
+
+That's it. Vector auto-publishes its runtime, and `@vectorJs` loads it where you need it.
 
 ## The Trade-offs
 
@@ -112,44 +114,9 @@ Let's be real about what this is:
 - When you need proper SFC features (scoped styles, etc.)
 - Large-scale SPAs (just use Inertia at that point)
 
-## Multiple Components? No Problem
-
-Each `@vector` block is independent:
-
-```blade
-@vector
-    <script setup>
-        const name = ref('World');
-    </script>
-@endvector
-
-<div>
-    <input v-model="name" />
-    <p>Hello, @{{ name }}!</p>
-</div>
-
-@vector
-    <script setup>
-        const items = ref(['Apple', 'Banana']);
-        const count = computed(() => items.value.length);
-    </script>
-@endvector
-
-<ul>
-    <li v-for="item in items">@{{ item }}</li>
-    <p>@{{ count }} items</p>
-</ul>
-```
-
-## Is This Cursed?
-
-A little bit, yes. We're essentially doing runtime compilation of Vue templates, which goes against the "compile everything ahead of time" philosophy.
-
-But sometimes the right tool is the one that gets out of your way. And for those moments when you just want to add a reactive counter to your Blade view without spinning up a whole component ecosystem, Vector is there.
-
 ## Try It
 
-The package is available on GitHub. Star it, fork it, tell me it's an abomination—whatever feels right.
+The package is available on [GitHub](https://github.com/brunoabpinto/vector). Star it, fork it, tell me it's an abomination—whatever feels right.
 
 ```bash
 composer require brunoabpinto/vector
