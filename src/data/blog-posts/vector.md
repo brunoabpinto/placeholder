@@ -5,8 +5,6 @@ publishDate: 3 Feb 2026
 description: Laravel package that lets you write Vue directly in Blade templates using a simple <script setup> tag.
 ---
 
-<!-- @format -->
-
 You know that feeling when you're building a Laravel app and you just need a tiny bit of reactivity? A counter. A toggle. Something that feels overkill for a full Vue component but too annoying for vanilla JavaScript?
 
 I kept reaching for Alpine.js, which is great, but I wanted Vue's Composition API. The `ref()`, the `computed()`, the familiar syntax I already know. So I built Vector.

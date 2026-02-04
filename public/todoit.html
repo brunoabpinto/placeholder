@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo It</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Inter:wght@400;500;600&display=swap");
+
+      :root {
+        --bg: #f6f1e8;
+        --ink: #1d1c1a;
+        --muted: #6f6a64;
+        --accent: #e36b2c;
+        --accent-dark: #c14f1c;
+        --card: #ffffff;
+        --ring: rgba(227, 107, 44, 0.25);
+        --shadow: 0 10px 30px rgba(29, 28, 26, 0.12);
+        --radius: 18px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Inter", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(
+            900px 400px at 10% -5%,
+            rgba(227, 107, 44, 0.25),
+            transparent 70%
+          ),
+          radial-gradient(
+            700px 320px at 110% 10%,
+            rgba(255, 202, 107, 0.35),
+            transparent 60%
+          ),
+          var(--bg);
+      }
+
+      .page {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 56px 20px 80px;
+      }
+
+      .hero {
+        display: grid;
+        gap: 18px;
+        margin-bottom: 32px;
+      }
+
+      .title {
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: clamp(2.4rem, 4vw, 3.4rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin: 0;
+      }
+
+      .subtitle {
+        max-width: 560px;
+        color: var(--muted);
+        font-size: 1.05rem;
+        margin: 0;
+      }
+
+      .card {
+        background: var(--card);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 22px;
+      }
+
+      form {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+        align-items: center;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 14px 16px;
+        font-size: 1rem;
+        border: 1px solid rgba(29, 28, 26, 0.1);
+        border-radius: 12px;
+        outline: none;
+        background: #fffdf9;
+        transition:
+          border 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      input[type="text"]:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 4px var(--ring);
+      }
+
+      button {
+        border: none;
+        background: var(--accent);
+        color: white;
+        padding: 12px 18px;
+        border-radius: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          transform 0.15s ease,
+          background 0.2s ease;
+      }
+
+      button:hover {
+        background: var(--accent-dark);
+        transform: translateY(-1px);
+      }
+
+      .toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 24px 0 12px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .toolbar-actions {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .share {
+        background: transparent;
+        color: var(--accent);
+        border: 1px solid rgba(227, 107, 44, 0.3);
+        padding: 6px 10px;
+        border-radius: 10px;
+        font-weight: 600;
+      }
+
+      .share:hover {
+        background: rgba(227, 107, 44, 0.1);
+      }
+
+      .list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .todo {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 14px 16px;
+        background: #fff;
+        border-radius: 14px;
+        border: 1px solid rgba(29, 28, 26, 0.08);
+      }
+
+      .todo input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--accent);
+      }
+
+      .todo-text {
+        font-size: 1rem;
+      }
+
+      .todo.done .todo-text {
+        text-decoration: line-through;
+        color: var(--muted);
+      }
+
+      .delete {
+        background: transparent;
+        color: var(--muted);
+        padding: 6px 10px;
+        border-radius: 10px;
+        border: 1px solid transparent;
+      }
+
+      .delete:hover {
+        color: var(--accent-dark);
+        border-color: rgba(193, 79, 28, 0.2);
+        transform: none;
+      }
+
+      .empty {
+        padding: 28px;
+        text-align: center;
+        color: var(--muted);
+        border: 1px dashed rgba(29, 28, 26, 0.15);
+        border-radius: 14px;
+      }
+
+      @media (max-width: 640px) {
+        form {
+          grid-template-columns: 1fr;
+        }
+
+        button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <h1 class="title">Todo It</h1>
+        <p class="subtitle">
+          Capture what matters, keep the rest out of your head. This little list
+          lives in the URL, so sharing is as easy as copy and paste.
+        </p>
+      </section>
+
+      <section class="card">
+        <form>
+          <input type="text" placeholder="Write a new todo..." />
+          <button type="submit">Add Todo</button>
+        </form>
+
+        <div class="toolbar">
+          <span id="todo-count">0 tasks</span>
+          <div class="toolbar-actions">
+            <span>Saved to the URL</span>
+            <button type="button" id="share-btn" class="share">
+              Copy link
+            </button>
+          </div>
+        </div>
+
+        <div id="todo-list" class="list"></div>
+      </section>
+    </main>
+  </body>
+</html>
+
+<script>
+  let todos = [];
+  let nextId = 1;
+
+  const listEl = document.getElementById("todo-list");
+  const countEl = document.getElementById("todo-count");
+  const form = document.querySelector("form");
+  const shareBtn = document.getElementById("share-btn");
+
+  loadFromHash();
+  render();
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const input = form.querySelector("input");
+    const text = input.value.trim();
+    if (!text) return;
+
+    todos.unshift({
+      id: nextId++,
+      text,
+      done: false,
+    });
+    input.value = "";
+    persist();
+    render();
+  });
+
+  shareBtn.addEventListener("click", async () => {
+    const url = window.location.href;
+    try {
+      await navigator.clipboard.writeText(url);
+      const original = shareBtn.textContent;
+      shareBtn.textContent = "Copied!";
+      setTimeout(() => {
+        shareBtn.textContent = original;
+      }, 1200);
+    } catch (error) {
+      prompt("Copy this link:", url);
+    }
+  });
+
+  function loadFromHash() {
+    const hash = window.location.hash.substring(1);
+    if (!hash) return;
+
+    try {
+      const decoded = atob(hash);
+      const parsed = JSON.parse(decoded);
+      if (Array.isArray(parsed)) {
+        todos = parsed
+          .filter((t) => Array.isArray(t) && t.length >= 3)
+          .map(([id, done, text]) => ({
+            id: Number(id),
+            done: Boolean(done),
+            text: String(text),
+          }));
+        const maxId = todos.reduce((max, t) => Math.max(max, t.id), 0);
+        nextId = maxId + 1;
+        return;
+      }
+    } catch (error) {
+      todos = [];
+    }
+  }
+
+  function render() {
+    listEl.innerHTML = "";
+
+    if (todos.length === 0) {
+      const empty = document.createElement("div");
+      empty.className = "empty";
+      empty.textContent =
+        "No tasks yet. Add your first one and give yourself a tiny win.";
+      listEl.appendChild(empty);
+      countEl.textContent = "0 tasks";
+      return;
+    }
+
+    todos.forEach((todo) => {
+      const item = document.createElement("div");
+      item.className = `todo${todo.done ? " done" : ""}`;
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = todo.done;
+      checkbox.addEventListener("change", () => {
+        todo.done = checkbox.checked;
+        persist();
+        render();
+      });
+
+      const text = document.createElement("div");
+      text.className = "todo-text";
+      text.textContent = todo.text;
+
+      const del = document.createElement("button");
+      del.className = "delete";
+      del.type = "button";
+      del.textContent = "Delete";
+      del.addEventListener("click", () => {
+        todos = todos.filter((t) => t.id !== todo.id);
+        persist();
+        render();
+      });
+
+      item.appendChild(checkbox);
+      item.appendChild(text);
+      item.appendChild(del);
+      listEl.appendChild(item);
+    });
+
+    const remaining = todos.filter((t) => !t.done).length;
+    const label = remaining === 1 ? "task" : "tasks";
+    countEl.textContent = `${remaining} ${label} remaining`;
+  }
+
+  function persist() {
+    if (todos.length === 0) {
+      window.location.hash = "";
+      return;
+    }
+
+    const compact = todos.map((t) => [t.id, t.done ? 1 : 0, t.text]);
+    const hash = btoa(JSON.stringify(compact));
+    window.location.hash = hash;
+  }
+</script>
