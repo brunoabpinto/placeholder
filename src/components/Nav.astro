@@ -13,6 +13,7 @@ const { current = '' } = Astro.props;
     font-weight: 700;
     justify-content: flex-end;
     text-transform: uppercase;
+    flex-wrap: wrap;
   }
 
   a {
@@ -56,8 +57,19 @@ const { current = '' } = Astro.props;
   }
 
   @media screen and (max-width: 520px) {
+    nav {
+      justify-content: center;
+      gap: 0.25em 0.75em;
+    }
+
     .theme-toggle-container {
       margin-right: 1em;
+      width: auto;
+    }
+
+    a {
+      margin-left: 0;
+      min-width: auto;
     }
   }
 
