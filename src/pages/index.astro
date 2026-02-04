@@ -19,13 +19,15 @@ allPosts = allPosts.sort((a, b) => new Date(b.data.publishDate).valueOf() - new 
           { index !== 0 && <hr /> }
           <div class="post-item">
             {post.data.slug && (
+              <a href={href}>
 										<img
                       width="860"
                       height="510"
                       src={`/assets/blog/${post.data.slug}.jpg`}
                       alt=""
                     />
-									)}
+              </a>
+            )}
             <h2>
               <a href={href}>{post.data.title}</a>
             </h2>
