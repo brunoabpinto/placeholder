@@ -29,17 +29,17 @@ Vector is a Laravel package that lets you write Vue directly in your Blade templ
 </div>
 ```
 
-That's it. No build step for your components. No separate `.vue` files. No special directives wrapping your code. Just a `<script setup>` tag and you're done.
+That's the whole thing. No build step for your components. No separate `.vue` files. No special directives wrapping your code. Just a `<script setup>` tag and you're done.
 
 ## How It Works
 
-The `<script setup>` tag gets transformed at compile time. Vector treats the **element immediately after** the script tag as your Vue template—everything inside that element becomes reactive, and anything outside it remains regular Blade.
+The `<script setup>` tag gets transformed at compile time. Vector treats the **element immediately after** the script tag as your Vue template. Everything inside that element becomes reactive, and anything outside it remains regular Blade.
 
 1. Blade's precompiler finds your `<script setup>` blocks
 2. Extracts your variable declarations
 3. Mounts Vue on the next sibling element
 
-The magic is in the variable extraction. It parses `const`, `let`, and `var` declarations and auto-returns them to the template. You write normal code, it figures out the rest.
+The key part is the variable extraction. It parses `const`, `let`, and `var` declarations and auto-returns them to the template. You write normal code, it figures out the rest.
 
 ### Escaping Blade Syntax
 
@@ -116,7 +116,7 @@ Let's be real about what this is:
 
 ## Try It
 
-The package is available on [GitHub](https://github.com/brunoabpinto/vector). Star it, fork it, tell me it's an abomination—whatever feels right.
+The package is available on [GitHub](https://github.com/brunoabpinto/vector). Star it, fork it, tell me it's an abomination. Whatever feels right.
 
 ```bash
 composer require brunoabpinto/vector
