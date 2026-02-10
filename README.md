@@ -4,7 +4,7 @@
 
 My personal blog built with [Astro](https://astro.build).
 
-[Live url](https://placeholderblog.netlify.app/).
+[Live url](https://brunopinto.dev).
 
 ## Commands
 

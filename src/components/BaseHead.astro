@@ -13,7 +13,7 @@ export interface Props {
 
 const { title, description, permalink, slug, image } = Astro.props
 const defaultImage = `${Astro.site.href}assets/blog/default.jpg`
-const socialUrl = image ?? (slug ? `${Astro.site.href}assets/blog/${slug}.jpg?v=1` : defaultImage)
+const socialUrl = image ?? (slug ? `${Astro.site.href}assets/blog/${slug}.jpg` : defaultImage)
 ---
 
 <!-- Global Metadata -->
