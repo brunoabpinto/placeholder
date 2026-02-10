@@ -64,4 +64,6 @@ Delete four spaces. That's it.
 
 I made sure `routes/web.php` started with `<?php` on the very first character of the very first line. Saved. Everything worked.
 
-It's the kind of thing you learn early and then forget to check, because who looks at whitespace before `<?php`? But once the body starts, you can't send headers. Any output — even whitespace — counts as body.
+Livewire relies on the session to verify CSRF tokens on every request. Without a `Set-Cookie` header, the browser never stores a session — and without a session, every Livewire interaction fails with a 419.
+
+Four spaces before `<?php` were enough to start the response body, and once the body starts, PHP can't send headers anymore.
