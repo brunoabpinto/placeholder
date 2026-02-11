@@ -14,6 +14,7 @@ I wanted something in the middle. Not raw PHP. Not a full Laravel app either.
 So I built **Minimo**.
 
 Repository: [github.com/brunoabpinto/minimo](https://github.com/brunoabpinto/minimo)
+Live preview/docs: [minimo.infinityfree.me](https://minimo.infinityfree.me/)
 
 ## What I wanted
 
