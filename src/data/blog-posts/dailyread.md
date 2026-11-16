@@ -44,7 +44,9 @@ The script asks Claude Code to:
 2. Skip anything already featured.
 3. Return the title, author, source, topic, a summary and why it's worth reading.
 
-Then it grabs the article's preview image, writes the Markdown file, and I push. Netlify rebuilds. Done.
+Then it grabs the article's preview image and writes the Markdown file.
+
+If I want to publish it right away, `npm run new-post:push` does the same, then commits and pushes. Netlify rebuilds. Done.
 
 ## Why Astro
 
